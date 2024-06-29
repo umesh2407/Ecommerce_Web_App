@@ -1,5 +1,5 @@
 const Product = require('../models/product');
-const { create } = require('../models/user');
+const ApiFeatures = require('../utils/apifeautures');
 
 //Create a Product --Admin
 exports.createProduct = async(req,res)=>{
@@ -15,7 +15,15 @@ res.status(201).json({
 
 //Get all Products
 exports.getallProduct = async(req,res)=>{
-    const products = await Product.find();
+
+    const resultPerPage = 8;
+    const apiFeature = new ApiFeatures(Product.find(), req.query)
+    .search()
+    .filter()
+    .pagination(resultPerPage);
+
+  let products = await apiFeature.query;
+
     res.status(200).json({
         success:true,
         products
