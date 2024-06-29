@@ -20,7 +20,8 @@ app.use(
 const authRoute = require("./routes/auth");
 app.use("/api/auth", authRoute);
 
-
+const productRoute = require("./routes/product");
+app.use("/api/product",productRoute);
 
 app.get('/',(req, res)=>{
     res.send("Hello from Server!!! ")
