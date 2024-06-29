@@ -16,6 +16,11 @@ app.use(
   })
 );
 
+//for login and signup
+const authRoute = require("./routes/auth");
+app.use("/api/auth", authRoute);
+
+
 
 app.get('/',(req, res)=>{
     res.send("Hello from Server!!! ")
