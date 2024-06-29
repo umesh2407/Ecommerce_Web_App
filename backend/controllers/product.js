@@ -12,7 +12,6 @@ res.status(201).json({
 })
 }
 
-
 //Get all Products
 exports.getallProduct = async(req,res)=>{
 
