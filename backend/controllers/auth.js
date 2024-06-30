@@ -206,7 +206,7 @@ exports.forgotPassword = async (req, res, next) => {
 
   await user.save({ validateBeforeSave: false });
 
-  const resetPasswordUrl = `${req.protocol}://${req.get("host")}/password/reset/${resetToken}`;
+  const resetPasswordUrl = `${req.protocol}://${req.get("host")}/api/auth/password/reset/${resetToken}`;
 
   const message = `Your password reset token is: \n\n${resetPasswordUrl}\n\nIf you have not requested this email, please ignore it.`;
 
@@ -247,7 +247,7 @@ exports.resetPassword = async (req, res, next) => {
   });
 
   if (!user) {
-    return res.status(400).json({ message: "Reset Password Token is invalid or has expired" });
+    return res.status(400).json({ message: "Reset Password Token is invalid or has been expired" });
   }
 
   if (req.body.password !== req.body.confirmPassword) {
