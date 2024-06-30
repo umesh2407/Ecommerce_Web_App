@@ -10,7 +10,7 @@ router.post('/signup',authController.signUpUser);
 router.post('/login',authController.loginUser);
 
 //LogOut route
-router.post('/logout', verifyToken ,authController.logout);
+router.get('/logout', verifyToken ,authController.logout);
 
 
 module.exports = router;

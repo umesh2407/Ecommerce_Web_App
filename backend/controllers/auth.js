@@ -75,7 +75,7 @@ exports.loginUser = async (req, res) => {
 
 
 // Logout User
-exports.logout = async (req, res, next) => {
+exports.logout = async (req, res) => {
     res.cookie("token", null, {
       expires: new Date(Date.now()),
       httpOnly: true,

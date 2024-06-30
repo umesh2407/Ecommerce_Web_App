@@ -4,6 +4,8 @@ const ApiFeatures = require('../utils/apifeautures');
 //Create a Product --Admin
 exports.createProduct = async(req,res)=>{
 
+req.body.user = req.user.user;
+
 const product = await Product.create(req.body);
 
 res.status(201).json({
