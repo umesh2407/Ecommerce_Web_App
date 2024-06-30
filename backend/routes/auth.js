@@ -12,5 +12,7 @@ router.post('/login',authController.loginUser);
 //LogOut route
 router.get('/logout', verifyToken ,authController.logout);
 
+//Forgot password
+router.post('/password/forgot',authController.forgotPassword)
 
 module.exports = router;

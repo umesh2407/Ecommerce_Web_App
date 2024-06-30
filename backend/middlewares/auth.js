@@ -43,7 +43,6 @@ function authorizeRoles(...roles) {
       next();
     };
   }
-  
 
 module.exports = {
     generateJwtToken,
