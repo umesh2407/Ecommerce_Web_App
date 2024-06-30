@@ -20,6 +20,9 @@ app.use(
 const authRoute = require("./routes/auth");
 app.use("/api/auth", authRoute);
 
+const userRoute = require("./routes/user");
+app.use("/api/user", userRoute);
+
 const productRoute = require("./routes/product");
 app.use("/api/product",productRoute);
 

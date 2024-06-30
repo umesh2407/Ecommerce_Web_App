@@ -89,92 +89,7 @@ exports.logout = async (req, res) => {
     });
   };
 
-// const getResetPasswordToken = () => {
-//     // Generating Token
-//     const resetToken = crypto.randomBytes(20).toString("hex");
-  
-//     // Hashing and adding resetPasswordToken to userSchema
-//     const resetPasswordToken = crypto
-//       .createHash("sha256")
-//       .update(resetToken)
-//       .digest("hex");
-  
-//     const resetPasswordExpire = Date.now() + 15 * 60 * 1000;
-  
-//     return { resetToken, resetPasswordToken, resetPasswordExpire };
-//   };
-  
 
-
-// // Forgot Password
-// exports.forgotPassword = async (req, res, next) => {
-//   const user = await User.findOne({ email: req.body.email });
-
-//   if (!user) {
-//     return next(res.status(404).send({ message: 'User not found' }));
-//   }
-
-//   // Get ResetPassword Token
-//   const resetToken = getResetPasswordToken();
-
-//   await user.save({ validateBeforeSave: false });
-
-//   const resetPasswordUrl = `${req.protocol}://${req.get(
-//     "host"
-//   )}/password/reset/${resetToken}`;
-
-//   const message = `Your password reset token is :- \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
-
-//   try {
-//     await sendEmail({
-//       email: user.email,
-//       subject: `Ecommerce Password Recovery`,
-//       message,
-//     });
-
-//     res.status(200).json({
-//       success: true,
-//       message: `Email sent to ${user.email} successfully`,
-//     });
-//   } catch (error) {
-//     user.resetPasswordToken = undefined;
-//     user.resetPasswordExpire = undefined;
-
-//     await user.save({ validateBeforeSave: false });
-
-//     return next(res.status(404).send({ message: 'User not found' }));
-//   }
-// };
-
-// // Reset Password
-// exports.resetPassword = async (req, res, next) => {
-//   // creating token hash
-//   const resetPasswordToken = crypto
-//     .createHash("sha256")
-//     .update(req.params.token)
-//     .digest("hex");
-
-//   const user = await User.findOne({
-//     resetPasswordToken,
-//     resetPasswordExpire: { $gt: Date.now() },
-//   });
-
-//   if (!user) {
-//     return next(res.status(404).send({ message:  "Reset Password Token is invalid or has been expired" }));
-//   }
-
-//   if (req.body.password !== req.body.confirmPassword) {
-//     return next(res.status(400).send({ message:  "Password does not match" }));
-//   }
-
-//   user.password = req.body.password;
-//   user.resetPasswordToken = undefined;
-//   user.resetPasswordExpire = undefined;
-
-//   await user.save();
-
-//   sendToken(user, 200, res);
-// };
 const getResetPasswordToken = () => {
   // Generating Token
   const resetToken = crypto.randomBytes(20).toString("hex");
@@ -264,4 +179,41 @@ exports.resetPassword = async (req, res, next) => {
   const token = generateJwtToken(user);
 
   res.status(200).json({ message: "Password reset successful", token });
+};
+
+// Update User password
+exports.updatePassword = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.user);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+
+    // Ensure trimming any extra spaces around passwords
+    const trimmedOldPassword = oldPassword.trim();
+    const isPasswordMatched = await bcrypt.compare(trimmedOldPassword, user.password);
+
+    if (!isPasswordMatched) {
+      return res.status(400).json({ message: "Old Password is incorrect" });
+    }
+
+    if (newPassword !== confirmPassword) {
+      return res.status(400).json({ message: "Passwords do not match" });
+    }
+
+    // Hash the new password before saving
+    user.password = await bcrypt.hash(newPassword, 10);
+
+    await user.save();
+
+    const token = generateJwtToken(user);
+
+    res.status(200).json({ message: "Password updated succesfully", token });
+  } catch (error) {
+    console.error("Error updating password:", error);
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
 };
