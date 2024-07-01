@@ -20,11 +20,17 @@ app.use(
 const authRoute = require("./routes/auth");
 app.use("/api/auth", authRoute);
 
+//users
 const userRoute = require("./routes/user");
 app.use("/api/user", userRoute);
 
+//products
 const productRoute = require("./routes/product");
 app.use("/api/product",productRoute);
+
+//orders
+const orderRoute = require("./routes/order");
+app.use("/api/order",orderRoute);
 
 app.get('/',(req, res)=>{
     res.send("Hello from Server!!! ")
