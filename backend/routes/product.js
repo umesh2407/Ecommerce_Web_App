@@ -10,5 +10,6 @@ router.delete('/:id', ProductController.deleteProduct);
 router.get('/:id', ProductController.getProductDetails);
 router.post('/review', verifyToken , ProductController.createProductReview);
 router.get('/get/reviews',verifyToken,ProductController.getProductReviews);
+router.delete('/delete/reviews',verifyToken,ProductController.deleteReview);
 
 module.exports = router;
