@@ -2,3 +2,6 @@
     margin: 0;
     scroll-behavior: smooth;
 }
+::selection {
+    color: #2effe7;
+}
