@@ -24,21 +24,20 @@ const App = () => {
 
   return (
     <Router>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/login" element={<Login/>}/>
-      <Route path="/register" element={<Register/>}/>
-      <Route path="/forgot-password" element={<ForgotPassword/>}/>
-      <Route path="/order-checkout" element={<CheckoutPage/>}/>
-      <Route path="/cart" element={<AddtoCart/>}/>
-      <Route path="/reviews" element={<ReviewCard/>}/>
-      <Route path="/products" element={<ProductsPage/>}/>
-      <Route path="/product-description" element={<ProductDescription/>}/>
-      <Route path="/about" element={<About/>}/>
-
-    </Routes>
-  </Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/order-checkout" element={<CheckoutPage />} />
+        <Route path="/cart" element={<AddtoCart />} />
+        <Route path="/reviews" element={<ReviewCard />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/product-description" element={<ProductDescription />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
+    </Router>
   );
 };
 

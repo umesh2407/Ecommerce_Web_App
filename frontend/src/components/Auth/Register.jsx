@@ -1,21 +1,36 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [file, setFile] = useState(null);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Implement registration logic here (replace with actual logic)
-    console.log("Register submitted:", { name, email, password, file });
-  };
 
-  const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
-    setFile(selectedFile);
+    try {
+      const requestData = {
+        name,
+        email,
+        password,
+      };
+
+      const response = await axios.post("http://localhost:3000/api/auth/signup", requestData);
+
+      console.log("Registration successful", response.data);
+      localStorage.setItem("token", token); 
+
+navigate("/profile");
+alert("User Registered successfully"); 
+
+    } catch (error) {
+      setError(error.response.data.message);
+    }
   };
 
   return (
@@ -26,10 +41,10 @@ const Register = () => {
           <h1 className="text-center text-3xl font-bold text-gray-700">
             Sign Up
           </h1>
-          <p className="text-gray-500">Create an account to get started</p>
+          {error && <p className="text-red-500">{error}</p>}
         </div>
 
-        <div>
+        <form onSubmit={handleSubmit}>
           <div className="relative mt-2 w-full">
             <input
               type="text"
@@ -46,9 +61,7 @@ const Register = () => {
               Enter Your Name
             </label>
           </div>
-        </div>
 
-        <div>
           <div className="relative mt-2 w-full">
             <input
               type="text"
@@ -65,12 +78,10 @@ const Register = () => {
               Enter Your Email
             </label>
           </div>
-        </div>
 
-        <div>
           <div className="relative mt-2 w-full">
             <input
-              type="text"
+              type="password"
               id="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -84,30 +95,18 @@ const Register = () => {
               Enter Your Password
             </label>
           </div>
-        </div>
 
-        <div>
-          <label htmlFor="file" className="text-sm text-gray-700">
-            Choose File:
-          </label>
-          <input
-            type="file"
-            id="file"
-            onChange={handleFileChange}
-            className="mt-1 block w-full border-gray-300 rounded-lg shadow-sm focus:border-blue-600 focus:ring focus:ring-blue-600 focus:ring-opacity-50"
-          />
-        </div>
+          <div className="flex w-full items-center mt-4">
+            <button
+              type="submit"
+              className="inline-block w-36 rounded-lg bg-gray-600 py-3 font-bold text-white hover:bg-gray-700 transition duration-300"
+            >
+              Register
+            </button>
+          </div>
+        </form>
 
-        <div className="flex w-full items-center">
-          <button
-            onClick={handleSubmit}
-            className="inline-block w-36 rounded-lg bg-gray-600 py-3 font-bold text-white hover:bg-gray-700 transition duration-300"
-          >
-            Register
-          </button>
-        </div>
-
-        <p className="text-center text-gray-600">
+        <p className="text-center text-gray-600 mt-4">
           Already have an account?{" "}
           <Link
             to="/login"

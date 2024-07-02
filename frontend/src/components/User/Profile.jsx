@@ -15,8 +15,9 @@ const Profile = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        const token = localStorage.getItem("token");
         // Replace the token with your actual token retrieval logic
-        const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjY4MTdkZTg0MWRiM2U0NzU3YTEyNTg3IiwiZW1haWwiOiJjaG91ZGhhcnl1bWVzaDk4NkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3MTk5MDYwMjcsImlhdCI6MTcxOTkwMjQyN30.GS5oaCKEw4OUdvea26gqs8BDNRPAAj6Lgh9bR83vET8";
+        // const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoiNjY4MTdkZTg0MWRiM2U0NzU3YTEyNTg3IiwiZW1haWwiOiJjaG91ZGhhcnl1bWVzaDk4NkBnbWFpbC5jb20iLCJyb2xlIjoiYWRtaW4iLCJleHAiOjE3MTk5MDYwMjcsImlhdCI6MTcxOTkwMjQyN30.GS5oaCKEw4OUdvea26gqs8BDNRPAAj6Lgh9bR83vET8";
         const response = await axios.get("http://localhost:3000/api/user/me", {
           headers: {
             "Content-Type": "application/json",
