@@ -6,6 +6,7 @@ import Profile from "./components/User/Profile";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
 import ForgotPassword from "./components/Auth/ForgotPassword";
+import CheckoutPage from "./components/Product/CheckoutPage";
 
 const App = () => {
   React.useEffect(() => {
@@ -24,6 +25,8 @@ const App = () => {
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
       <Route path="/forgot-password" element={<ForgotPassword/>}/>
+      <Route path="/order-checkout" element={<CheckoutPage/>}/>
+
     </Routes>
   </Router>
   );
