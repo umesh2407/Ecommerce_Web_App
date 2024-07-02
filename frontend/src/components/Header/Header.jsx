@@ -20,7 +20,6 @@ const Header = () => {
         <ul className="md:flex gap-10">
           <li><a href="/" className="text-gray-800 hover:text-black text-lg">Home</a></li>
           <li><a href="/products" className="text-gray-800 hover:text-black text-lg">Products</a></li>
-          <li><a href="/contact" className="text-gray-800 hover:text-black text-lg">Contact</a></li>
           <li><a href="/about" className="text-gray-800 hover:text-black text-lg">About</a></li>
         </ul>
       </nav>

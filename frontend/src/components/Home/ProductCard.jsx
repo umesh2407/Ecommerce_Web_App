@@ -11,7 +11,6 @@ const options = {
     isHalf: true,
 }
 
-
 const ProductCard = ({ product }) => {
 
   return (
