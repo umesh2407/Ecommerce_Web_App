@@ -1,64 +1,32 @@
-// import React from "react";
-// import playStore from "../../images/playstore.png";
-// import appStore from "../../images/Appstore.png";
-// import "./Footer.css";
-
-// const Footer = () => {
-//   return (
-//     <footer id="footer">
-//       <div className="leftFooter">
-//         <h4>DOWNLOAD OUR APP</h4>
-//         <p>Download App for Android and IOS mobile phone</p>
-//         <img src={playStore} alt="playstore" />
-//         <img src={appStore} alt="Appstore" />
-//       </div>
-
-//       <div className="midFooter">
-//         <h1>ECOMMERCE.</h1>
-//         <p>High Quality is our first priority</p>
-
-//         <p>Copyrights 2024 &copy; Umesh Choudhary</p>
-//       </div>
-
-//       <div className="rightFooter">
-//         <h4>Follow Us</h4>
-//         <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/">Instagram</a>
-//         <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/">Youtube</a>
-//         <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/">Facebook</a>
-//       </div>
-//     </footer>
-//   );
-// };
-
-// export default Footer;
-
 import React from "react";
 import playStore from "../../images/playstore.png";
 import appStore from "../../images/Appstore.png";
-import "./Footer.css";
 
 const Footer = () => {
   return (
-    <footer id="footer">
-      <div className="leftFooter">
-        <h4>DOWNLOAD OUR APP</h4>
-        <p>Download App for Android and IOS mobile phone</p>
-        <img src={playStore} alt="playstore" />
-        <img src={appStore} alt="Appstore" />
+    <footer className="bg-gray-800 text-white py-6 flex flex-wrap items-center">
+      <div className="w-full md:w-1/3 flex flex-col items-center justify-center">
+        <h4 className="text-lg font-medium mb-2">DOWNLOAD OUR APP</h4>
+        <p className="text-sm text-center">Download App for Android and IOS mobile phone</p>
+        <div className="flex mt-2">
+          <img src={playStore} alt="playstore" className="w-20 mr-4 cursor-pointer" />
+          <img src={appStore} alt="Appstore" className="w-20 cursor-pointer" />
+        </div>
       </div>
 
-      <div className="midFooter">
-        <h1>ECOMMERCE.</h1>
-        <p>High Quality is our first priority</p>
-
-        <p>Copyrights 2024 &copy; Umesh Choudhary</p>
+      <div className="w-full md:w-1/3 flex flex-col items-center justify-center">
+        <h1 className="text-4xl font-bold mb-2">ECOMMERCE.</h1>
+        <p className="text-lg text-center">High Quality is our first priority</p>
+        <p className="text-sm mt-4">&copy; 2024 Umesh Choudhary</p>
       </div>
 
-      <div className="rightFooter">
-        <h4>Follow Us</h4>
-        <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/">Instagram</a>
-        <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/">Youtube</a>
-        <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/">Facebook</a>
+      <div className="w-full md:w-1/3 flex flex-col items-center justify-center mt-4 md:mt-0">
+        <h4 className="text-lg font-medium mb-2">Follow Us</h4>
+        <div className="flex">
+          <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/" className="text-lg mr-4 hover:text-black transition duration-500">Instagram</a>
+          <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/" className="text-lg mr-4 hover:text-black transition duration-500">Youtube</a>
+          <a href="https://www.linkedin.com/in/umesh-choudhary-67980a242/" className="text-lg hover:text-black transition duration-500">Facebook</a>
+        </div>
       </div>
     </footer>
   );

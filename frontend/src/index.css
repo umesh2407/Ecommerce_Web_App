@@ -3,5 +3,9 @@
     scroll-behavior: smooth;
 }
 ::selection {
-    color: #2effe7;
-}
+    color: black;
+}   
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

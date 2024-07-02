@@ -21,9 +21,9 @@ const Home = () => {
       <p>Welcome to Ecommerce</p>
       <h1>Find Amazing Products below </h1>
       <a href="#container">
-      <button>
-        Scroll <CiDesktopMouse1 />
-      </button>
+       <button className="mt-8 px-6 py-3 bg-white text-black border border-white rounded-lg shadow-lg transition duration-300 hover:bg-transparent hover:text-white">
+              Scroll <CiDesktopMouse1 className="inline-block ml-2" />
+            </button>
       </a>
     </div>
     <h2 className="homeHeading">Featured Products</h2>

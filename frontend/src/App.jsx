@@ -5,6 +5,7 @@ import Home from "./components/Home/Home";
 import Profile from "./components/User/Profile";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
+import ForgotPassword from "./components/Auth/ForgotPassword";
 
 const App = () => {
   React.useEffect(() => {
@@ -22,7 +23,7 @@ const App = () => {
       <Route path="/profile" element={<Profile />} />
       <Route path="/login" element={<Login/>}/>
       <Route path="/register" element={<Register/>}/>
-
+      <Route path="/forgot-password" element={<ForgotPassword/>}/>
     </Routes>
   </Router>
   );
