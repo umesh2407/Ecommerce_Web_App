@@ -1,9 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import Header from "./components/Header/Header";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Webfont from "webfontloader";
-import Footer from "./components/Footer/Footer";
 import Home from "./components/Home/Home";
+import Profile from "./components/User/Profile";
 
 const App = () => {
   React.useEffect(() => {
@@ -16,10 +15,11 @@ const App = () => {
 
   return (
     <Router>
-      <Header />
-      <Home />
-      <Footer />
-    </Router>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/profile" element={<Profile />} />
+    </Routes>
+  </Router>
   );
 };
 
