@@ -32,6 +32,10 @@ app.use("/api/product",productRoute);
 const orderRoute = require("./routes/order");
 app.use("/api/order",orderRoute);
 
+//cart
+const cartRoute = require("./routes/cart");
+app.use("/api/cart",cartRoute);
+
 app.get('/',(req, res)=>{
     res.send("Hello from Server!!! ")
 })
