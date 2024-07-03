@@ -12,6 +12,7 @@ import ReviewCard from "./components/Product/ReviewCard";
 import ProductDescription from "./components/Product/ProductDescription";
 import ProductsPage from "./components/Product/ProductsPage";
 import About from "./components/About/About";
+import ResetPassword from "./components/Auth/ResetPassword";
 
 const App = () => {
   React.useEffect(() => {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/product/:id" element={<ProductDescription />} />
         <Route path="/about" element={<About />} />
+        <Route path="/reset-password" element={<ResetPassword/>} />
       </Routes>
     </Router>
   );

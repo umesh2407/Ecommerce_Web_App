@@ -1,19 +1,31 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Simulate validation (replace with actual logic)
-    if (!email || !email.includes("@")) {
+
+    if (!email || !email.includes('@')) {
       setEmailError(true);
       return;
     }
 
-    // Implement forgot password logic here (replace with actual logic)
-    console.log("Forgot password submitted:", { email });
+    try {
+      const response = await axios.post('http://localhost:3000/api/auth/password/forgot', {
+        email: email
+      });
+
+      console.log('Password reset request sent:', response.data);
+      setEmail('');
+      setEmailError(false);
+      alert('Check your email for reset password instructions');
+
+    } catch (error) {
+      console.error('Password reset request failed:', error);
+    }
   };
 
   const handleEmailChange = (e) => {

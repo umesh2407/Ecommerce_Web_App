@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom";
 import Header from "../Header/Header";
 import Footer from "../Footer/Footer";
 
@@ -53,8 +53,8 @@ const ProductsPage = () => {
               <h3 className="text-lg font-semibold mb-4">Categories</h3>
               <ul className="space-y-2">
                 <li className="cursor-pointer hover:text-blue-500">Laptop</li>
-                <li className="cursor-pointer hover:text-blue-500">Footwear</li>
-                <li className="cursor-pointer hover:text-blue-500">Bottom</li>
+                <li className="cursor-pointer hover:text-blue-500">Electronics</li>
+                <li className="cursor-pointer hover:text-blue-500">Clothes</li>
                 <li className="cursor-pointer hover:text-blue-500">Tops</li>
                 <li className="cursor-pointer hover:text-blue-500">Attire</li>
                 <li className="cursor-pointer hover:text-blue-500">Camera</li>
