@@ -23,10 +23,10 @@ const Header = () => {
           <li className="text-gray-800 hover:text-black text-lg"><Link to="/about"> About</Link></li>
         </ul>
       </nav>
-      <div className="flex items-center space-x-4">
-        <a href="/search" className="text-gray-800 hover:text-black text-2xl"><FaSearch /></a>
-        <a href="/cart" className="text-gray-800 hover:text-black text-2xl"><FaShoppingCart /></a>
-        <a href="/login" className="text-gray-800 hover:text-black text-2xl"><FaUser /></a>
+      <div className="flex items-center space-x-6">
+       <Link to="/search"  className="text-gray-800 hover:text-black text-xl"> <FaSearch /></Link>
+        <Link to="/cart" className="text-gray-800 hover:text-black text-xl"><FaShoppingCart /></Link>
+        <Link to="/login" className="text-gray-800 hover:text-black text-xl"><FaUser /></Link>
       </div>
       <div className="header__menu-icon md:hidden" onClick={toggleMobileMenu}>
         {isMobileMenuOpen ? <FaTimes className="text-gray-800 text-3xl" /> : <FaBars className="text-gray-800 text-3xl" />}
