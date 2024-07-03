@@ -8,6 +8,7 @@ const Register = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -20,14 +21,17 @@ const Register = () => {
         password,
       };
 
-      const response = await axios.post("http://localhost:3000/api/auth/signup", requestData);
-
+      const response = await axios.post(
+        "http://localhost:3000/api/auth/signup",
+        requestData
+      );
+      const token = response.data.token;
       console.log("Registration successful", response.data);
-      localStorage.setItem("token", token); 
-
-navigate("/profile");
-alert("User Registered successfully"); 
-
+      localStorage.setItem("token", token);
+      alert("User registered successfully");
+      setTimeout(() => {
+        navigate("/profile");
+      }, 1000);
     } catch (error) {
       setError(error.response.data.message);
     }
@@ -43,7 +47,6 @@ alert("User Registered successfully");
           </h1>
           {error && <p className="text-red-500">{error}</p>}
         </div>
-
         <form onSubmit={handleSubmit}>
           <div className="relative mt-2 w-full">
             <input
