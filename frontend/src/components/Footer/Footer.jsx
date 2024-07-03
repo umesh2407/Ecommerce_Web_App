@@ -1,6 +1,8 @@
 import React from "react";
 import playStore from "../../images/playstore.png";
 import appStore from "../../images/Appstore.png";
+import logo from "../../images/logo.png";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -15,7 +17,10 @@ const Footer = () => {
       </div>
 
       <div className="w-full md:w-1/3 flex flex-col items-center justify-center">
-        <h1 className="text-4xl font-bold mb-2">ECOMMERCE.</h1>
+        {/* <h1 className="text-4xl font-bold mb-2">ECOMMERCE.</h1> */}
+        <Link to="/">
+        <img src={logo} alt="Logo" className="w-[300px]" /></Link>
+      
         <p className="text-lg text-center">High Quality is our first priority</p>
         <p className="text-sm mt-4">&copy; 2024 Umesh Choudhary</p>
       </div>
