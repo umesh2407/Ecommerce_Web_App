@@ -16,7 +16,6 @@ const AddtoCart = () => {
           },
         });
 
-        // Fetch product details for each item in the cart
         const cartData = response.data.cart;
         const itemsWithDetails = await Promise.all(
           cartData.items.map(async (item) => {
@@ -49,11 +48,8 @@ const AddtoCart = () => {
         },
       });
 
-      // Remove the item from the cart state
-      setCart((prevCart) => ({
-        ...prevCart,
-        items: prevCart.items.filter((item) => item.product !== productId),
-      }));
+      // Fetch updated cart after removal
+      await fetchCart();
     } catch (error) {
       console.error('Error removing item from cart:', error);
     }
@@ -67,10 +63,6 @@ const AddtoCart = () => {
     return <div>{error}</div>;
   }
 
-  if (!cart || cart.items.length === 0) {
-    return <div>Your cart is empty</div>;
-  }
-
   return (
     <section className="h-screen bg-gray-100 py-12 sm:py-16 lg:py-20">
       <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -78,8 +70,8 @@ const AddtoCart = () => {
           <h1 className="text-2xl font-semibold text-gray-900">Your Cart</h1>
         </div>
 
-        <div className="mx-auto mt-8 max-w-md md:mt-12">
-          {cart.items && cart.items.length > 0 ? (
+        {cart && cart.items && cart.items.length > 0 ? (
+          <div className="mx-auto mt-8 max-w-md md:mt-12">
             <div className="rounded-3xl bg-white shadow-lg">
               <div className="px-4 py-6 sm:px-8 sm:py-10">
                 <div className="flow-root">
@@ -166,10 +158,7 @@ const AddtoCart = () => {
                 <div className="mt-6 flex items-center justify-between">
                   <p className="text-sm font-medium text-gray-900">Total</p>
                   <p className="text-2xl font-semibold text-gray-900">
-                    <span className="text-xs font-normal text-gray-400">
-                    ₹
-                    </span>{' '}
-                    {cart.total?.toFixed(2)}
+                    ${(cart.total)?.toFixed(2)}
                   </p>
                 </div>
 
@@ -201,14 +190,18 @@ const AddtoCart = () => {
                 </div>
               </div>
             </div>
-          ) : (
-            <div>Your cart is empty</div>
-          )}
-        </div>
+          </div>
+        ) : (
+          <div className="mx-auto mt-8 max-w-md md:mt-12">
+            <div className="rounded-3xl bg-white shadow-lg p-8 text-center">
+              <p className="text-2xl font-semibold text-gray-900">Your Cart</p>
+              <p className="mt-4 text-gray-500">Your cart is empty.</p>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
 };
 
 export default AddtoCart;
-

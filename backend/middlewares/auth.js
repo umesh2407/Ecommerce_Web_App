@@ -44,8 +44,32 @@ function authorizeRoles(...roles) {
     };
   }
 
+  //admin access
+async function isAdmin  (req, res, next) {
+    try {
+      const user = await userSchema.findById(req.user.user);
+      if (user.role !== "admin") {
+        return res.status(401).send({
+          success: false,
+          message: "UnAuthorized Access",
+        });
+      } else {
+        next();
+      }
+    } catch (error) {
+      console.log(error);
+      res.status(401).send({
+        success: false,
+        error,
+        message: "Error in admin middelware",
+      });
+    }
+  };
+
+
 module.exports = {
     generateJwtToken,
     verifyToken,
-    authorizeRoles
+    authorizeRoles,
+    isAdmin
 };

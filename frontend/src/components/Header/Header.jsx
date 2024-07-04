@@ -2,6 +2,7 @@
   import logo from "../../images/logo.png";
   import { FaSearch, FaShoppingCart, FaUser, FaBars, FaTimes } from 'react-icons/fa';
   import { Link } from 'react-router-dom';
+  import { IoLogOutOutline } from "react-icons/io5";
 
   const Header = () => {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -27,6 +28,7 @@
         <Link to="/search"  className="text-gray-800 hover:text-black text-xl"> <FaSearch /></Link>
           <Link to="/cart" className="text-gray-800 hover:text-black text-xl"><FaShoppingCart /></Link>
           <Link to="/login" className="text-gray-800 hover:text-black text-xl"><FaUser /></Link>
+          <Link to="/logout" className="text-gray-800 hover:text-black text-xl"><IoLogOutOutline/></Link>
         </div>
         <div className="header__menu-icon md:hidden" onClick={toggleMobileMenu}>
           {isMobileMenuOpen ? <FaTimes className="text-gray-800 text-3xl" /> : <FaBars className="text-gray-800 text-3xl" />}
@@ -36,4 +38,4 @@
   };
 
   export default Header;
- 
+  
