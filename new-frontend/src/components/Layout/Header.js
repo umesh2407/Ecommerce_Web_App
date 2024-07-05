@@ -5,12 +5,15 @@ import { useAuth } from "../../context/authContext";
 import { IoLogOut } from "react-icons/io5";
 import toast from "react-hot-toast";
 import { FaCaretDown } from "react-icons/fa";
+import SearchInput from "../Form/SearchInput";
+import { useCart } from "../../context/cart";
+import {Badge} from "antd";
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [auth, setAuth] = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
-
+ const [cart] = useCart();
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
@@ -33,7 +36,9 @@ const Header = () => {
               <img src="/logo.png" alt="E-Shop Logo" className="w-[160px]" />
             </Link>
           </div>
-
+<div>
+  <SearchInput/>
+</div>
           {/* Primary Nav */}
           <div className="hidden md:flex items-center space-x-4">
             <Link
@@ -48,12 +53,16 @@ const Header = () => {
             >
               Category
             </Link>
+            <Badge count={cart?.length} showZero>
             <Link
               to="/cart"
               className="py-5 px-3 text-gray-700 hover:text-gray-900 hover:underline"
             >
-              Cart(0)
+              Cart 
             </Link>
+            </Badge>
+
+           
           </div>
 
           {!auth.user ? (
@@ -131,7 +140,7 @@ const Header = () => {
           Category
         </Link>
         <Link to="/cart" className="block py-2 px-4 text-sm hover:bg-gray-200">
-          Cart(0)
+        Cart ({cart?.length})
         </Link>
         {!auth.user ? (
           <Link to="/login" className="block py-2 px-4 text-sm hover:bg-gray-200">

@@ -71,6 +71,64 @@ exports.signUpUser = async (req, res) => {
   }
 };
 
+// Update Profile
+exports.updateUserProfile = async (req, res) => {
+  try {
+    const { name, email, password, phone, address } = req.body;
+
+    const userId = req.user.user; 
+
+    // Validate email format
+    if (!isEmailValid(email)) {
+      return res.status(400).json({ message: "Invalid Email" });
+    }
+
+    // Find user by ID
+    let user = await User.findById(userId);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update user fields
+    user.name = name;
+    user.email = email;
+    user.phone = phone;
+    user.address = address;
+
+    // Check if password is provided and hash it
+    if (password) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      user.password = hashedPassword;
+    }
+
+    // Save updated user to database
+    await user.save();
+
+    // Generate JWT token with updated user information
+    const token = generateJwtToken(user);
+
+    // Return success response
+    res.status(200).json({
+      success: true,
+      message: "Profile updated successfully",
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        role: user.role,
+      },
+      token
+    });
+
+  } catch (err) {
+    console.error("Error in updateUserProfile:", err);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 // Login
 exports.loginUser = async (req, res) => {
   try {

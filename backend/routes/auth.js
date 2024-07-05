@@ -9,6 +9,9 @@ router.post("/signup", authController.signUpUser);
 // Login route
 router.post("/login", authController.loginUser);
 
+//update user profile
+router.put('/update', verifyToken, authController.updateUserProfile)
+
 //LogOut route
 router.get("/logout", verifyToken, authController.logout);
 
