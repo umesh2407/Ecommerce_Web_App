@@ -34,4 +34,18 @@ router.get('/admin-auth', verifyToken, isAdmin, (req,res)=>{
 }
 )
 
+//orders
+router.get("/orders",verifyToken,authController.getOrdersController);
+
+//all orders
+router.get("/all-orders",verifyToken, isAdmin, authController.getAllOrdersController);
+
+// order status update
+router.put(
+  "/order-status/:orderId",
+ verifyToken,
+  isAdmin,
+ authController.orderStatusController
+);
+
 module.exports = router;

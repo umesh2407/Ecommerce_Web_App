@@ -1,4 +1,6 @@
 const User = require("../models/user");
+const orderModel = require("../models/order");
+
 const bcrypt = require("bcrypt");
 const { generateJwtToken } = require("../middlewares/auth");
 const sendEmail = require("../utils/sendEmail");
@@ -309,5 +311,63 @@ exports.updatePassword = async (req, res) => {
   } catch (error) {
     console.error("Error updating password:", error);
     res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+//orders
+exports.getOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({ buyer: req.user.user })
+      .populate("products", "-photo")
+      .populate("buyer", "name");
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error WHile Geting Orders",
+      error,
+    });
+  }
+};
+
+//orders
+exports.getAllOrdersController = async (req, res) => {
+  try {
+    const orders = await orderModel
+      .find({})
+      .populate("products", "-photo")
+      .populate("buyer", "name")
+      .sort("-createdAt");
+    res.json(orders);
+  } catch (error) {
+    console.error("Error while getting all orders:", error);
+    res.status(500).send({
+      success: false,
+      message: "Error while getting orders",
+      error: error.message || error
+    });
+  }
+};
+
+//order status
+exports.orderStatusController = async (req, res) => {
+  try {
+    const { orderId } = req.params;
+    const { status } = req.body;
+    const orders = await orderModel.findByIdAndUpdate(
+      orderId,
+      { status },
+      { new: true }
+    );
+    res.json(orders);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Error While Updateing Order",
+      error,
+    });
   }
 };

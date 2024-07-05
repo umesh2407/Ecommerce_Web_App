@@ -1,6 +1,6 @@
 const productModel = require("../models/product.js");
 const categoryModel = require("../models/category.js");
-// import orderModel from "../models/orderModel.js";
+const orderModel = require("../models/order.js");
 
 const fs = require ("fs");
 const slugify  = require("slugify");

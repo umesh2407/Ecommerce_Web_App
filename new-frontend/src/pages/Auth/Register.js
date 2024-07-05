@@ -32,7 +32,7 @@ const Register = () => {
       localStorage.setItem("token", token);
       toast.success("User Registered successfuly");
       setTimeout(() => {
-        navigate("/profile");
+        navigate("/login");
       }, 1000);
     } catch (error) {
       setError(error.response.data.message);
