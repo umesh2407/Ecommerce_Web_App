@@ -9,11 +9,11 @@ const isEmailValid = (email) => {
   return emailRegex.test(email);
 };
 
-// SignUP
 exports.signUpUser = async (req, res) => {
   try {
-    const { name, email, password, avatar, role } = req.body;
+    const { name, email, password, phone, address } = req.body;
 
+    // Validate email format
     if (!isEmailValid(email)) {
       return res.status(400).json({ message: "Invalid Email" });
     }
@@ -33,17 +33,40 @@ exports.signUpUser = async (req, res) => {
       name,
       email,
       password: hashedPassword,
-      avatar,
-      role,
+      phone,
+      address,
+      role: 'user', // Assuming default role for new users
     });
 
     // Save user to database
     await newUser.save();
+
+    // Fetch user again to include additional fields or validation
     const user = await User.findOne({ email });
 
+    if (!user) {
+      return res.status(500).json({ message: "User not found after registration" });
+    }
+
+    // Generate JWT token
     const token = generateJwtToken(user);
-    res.status(201).json({ message: "User registered successfully", token });
+
+    // Return success response
+    res.status(201).json({
+      success: true,
+      message: "User Registered Successfully",
+      user: {
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        phone: newUser.phone,
+        address: newUser.address,
+        role: newUser.role,
+      },
+      token
+    });
   } catch (err) {
+    console.error("Error in signUpUser:", err);
     res.status(500).json({ message: "Server error" });
   }
 };
@@ -76,6 +99,8 @@ exports.loginUser = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        phone: user.phone,
+        address: user.address,
         role: user.role,
       },
       token,
