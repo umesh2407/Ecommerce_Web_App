@@ -35,7 +35,7 @@ const SearchInput = () => {
           value={values.keyword}
           onChange={(e) => setValues({ ...values, keyword: e.target.value })}
         />
-        <button className="btn btn-outline-success px-4 py-2 border border-gray-300 rounded hover:bg-gray-500 hover:text-black transition duration-300" type="submit">
+        <button className="btn btn-outline-success px-4 py-2 border border-gray-300 rounded hover:bg-gray-500 hover:text-white transition duration-300 font-semibold" type="submit">
           Search
         </button>
       </form>

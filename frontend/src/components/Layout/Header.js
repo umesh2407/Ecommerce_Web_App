@@ -43,20 +43,20 @@ const Header = () => {
           <div className="hidden md:flex items-center space-x-4">
             <Link
               to="/"
-              className="py-5 px-3 text-gray-700 hover:text-gray-900 hover:underline"
+              className="py-5 px-3 text-gray-900 hover:text-gray-700 hover:underline font-bold"
             >
               Home
             </Link>
             <Link
               to="/category"
-              className="py-5 px-3 text-gray-700 hover:text-gray-900 hover:underline"
+              className="py-5 px-3 text-gray-900 hover:text-gray-700 hover:underline font-bold"
             >
               Category
             </Link>
             <Badge count={cart?.length} showZero>
             <Link
               to="/cart"
-              className="py-5 px-3 text-gray-700 hover:text-gray-900 hover:underline"
+              className="py-5 px-3 text-gray-900 hover:text-gray-700 hover:underline font-bold"
             >
               Cart 
             </Link>
@@ -70,7 +70,7 @@ const Header = () => {
               <div className="hidden md:flex items-center">
                 <Link
                   to="/login"
-                  className="py-5 px-3 text-gray-700 hover:text-gray-900"
+                  className="py-5 px-3 text-gray-900 hover:text-gray-700"
                 >
                   <FaRegUserCircle className="h-7 w-6" />
                 </Link>

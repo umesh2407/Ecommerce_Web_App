@@ -18,6 +18,7 @@ import CartPage from "./pages/CartPage";
 import Order from "./pages/User/Order";
 import Profile from "./pages/User/Profile";
 import AdminOrder from "./pages/Admin/AdminOrder";
+import ForgotPassword from "./pages/Auth/ForgotPassword";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login/>} />
         <Route path="/register" element={<Register/>} />
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="*" element={<PageNotFound />} />
         </Routes>
         </>

@@ -7,6 +7,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import Layout from "./../components/Layout/Layout";
 import { AiOutlineReload } from "react-icons/ai";
+import { FaShoppingCart } from "react-icons/fa";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,10 +20,11 @@ const Home = () => {
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
 
-  //get all category
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/category/get-category`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API}/api/category/get-category`
+      );
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -35,11 +37,13 @@ const Home = () => {
     getAllCategory();
     getTotal();
   }, []);
-  //get products
+
   const getAllProducts = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/product/product-list/${page}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API}/api/product/product-list/${page}`
+      );
       setLoading(false);
       setProducts(data.products);
     } catch (error) {
@@ -48,10 +52,11 @@ const Home = () => {
     }
   };
 
-  //getTOtal COunt
   const getTotal = async () => {
     try {
-      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/product/product-count`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API}/api/product/product-count`
+      );
       setTotal(data?.total);
     } catch (error) {
       console.log(error);
@@ -62,11 +67,13 @@ const Home = () => {
     if (page === 1) return;
     loadMore();
   }, [page]);
-  //load more
+
   const loadMore = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${process.env.REACT_APP_API}/api/product/product-list/${page}`);
+      const { data } = await axios.get(
+        `${process.env.REACT_APP_API}/api/product/product-list/${page}`
+      );
       setLoading(false);
       setProducts([...products, ...data?.products]);
     } catch (error) {
@@ -75,7 +82,6 @@ const Home = () => {
     }
   };
 
-  // filter by cat
   const handleFilter = (value, id) => {
     let all = [...checked];
     if (value) {
@@ -85,6 +91,7 @@ const Home = () => {
     }
     setChecked(all);
   };
+
   useEffect(() => {
     if (!checked.length || !radio.length) getAllProducts();
   }, [checked.length, radio.length]);
@@ -93,25 +100,29 @@ const Home = () => {
     if (checked.length || radio.length) filterProduct();
   }, [checked, radio]);
 
-  //get filterd product
   const filterProduct = async () => {
     try {
-      const { data } = await axios.post(`${process.env.REACT_APP_API}/api/product/product-filters`, {
-        checked,
-        radio,
-      });
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API}/api/product/product-filters`,
+        {
+          checked,
+          radio,
+        }
+      );
       setProducts(data?.products);
     } catch (error) {
       console.log(error);
     }
   };
+
   return (
     <Layout title={"All Products - Best offers "}>
-   
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4 mt-10">
-        <div className="col-span-1 shadow-lg">
-          <h4 className="text-center text-xl font-semibold">Filter By Category</h4>
-          <div className="flex flex-col mt-2">
+        <div className="col-span-1 shadow-2xl rounded-2xl mb-10">
+          <h4 className="text-center text-xl font-semibold mt-5 shadow-sm">
+            Filter By Category
+          </h4>
+          <div className="flex flex-col mt-5 ml-8">
             {categories?.map((c) => (
               <Checkbox
                 key={c._id}
@@ -122,12 +133,13 @@ const Home = () => {
               </Checkbox>
             ))}
           </div>
-          {/* price filter */}
-          <h4 className="text-center text-xl font-semibold mt-6">Filter By Price</h4>
-          <div className="flex flex-col mt-2 ">
+          <h4 className="text-center text-xl font-semibold mt-6 shadow-sm">
+            Filter By Price
+          </h4>
+          <div className="flex flex-col mt-5 ml-8 ">
             <Radio.Group onChange={(e) => setRadio(e.target.value)}>
               {Prices?.map((p) => (
-                <div key={p._id} className="mb-2 text-xl font-semibold">
+                <div key={p._id} className="mb-2 text-2xl font-semibold">
                   <Radio value={p.array}>{p.name}</Radio>
                 </div>
               ))}
@@ -135,21 +147,24 @@ const Home = () => {
           </div>
           <div className="flex flex-col mt-4">
             <button
-              className="btn btn-danger py-2 text-white bg-red-500 hover:bg-red-700"
+              className="mt-8 py-2 text-white bg-red-500 hover:bg-red-700 rounded-lg"
               onClick={() => window.location.reload()}
             >
               RESET FILTERS
             </button>
           </div>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-3 mb-10">
           <h1 className="text-center text-2xl font-bold mb-6">All Products</h1>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products?.map((p) => (
-              <div className="card bg-white shadow-md rounded-lg overflow-hidden" key={p._id}>
+              <div
+                className="card bg-white shadow-md rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
+                key={p._id}
+              >
                 <img
                   src={`${process.env.REACT_APP_API}/api/product/product-photo/${p._id}`}
-                  className="w-full h-48 object-cover"
+                  className="w-full h-96 object-cover"
                   alt={p.name}
                 />
                 <div className="p-4">
@@ -172,8 +187,9 @@ const Home = () => {
                     >
                       More Details
                     </button>
+
                     <button
-                      className="btn btn-dark text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded"
+                      className="btn btn-dark text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded flex items-center"
                       onClick={() => {
                         setCart([...cart, p]);
                         localStorage.setItem(
@@ -183,7 +199,7 @@ const Home = () => {
                         toast.success("Item Added to cart");
                       }}
                     >
-                      ADD TO CART
+                      Add to Cart <FaShoppingCart className="ml-2" />
                     </button>
                   </div>
                 </div>
@@ -216,4 +232,3 @@ const Home = () => {
 };
 
 export default Home;
-
