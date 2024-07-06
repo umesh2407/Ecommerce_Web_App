@@ -45,10 +45,11 @@ const Login = () => {
 
   return (
     <Layout>
-      <div className="flex h-screen items-center overflow-hidden px-2">
+      <div className="flex h-screen items-center overflow-hidden px-2 mb-10">
         <div className="relative flex w-96 flex-col space-y-5 rounded-lg border bg-white px-5 py-10 shadow-xl sm:mx-auto">
-          <div className="-z-10 absolute top-4 left-1/2 h-full w-5/6 -translate-x-1/2 rounded-lg bg-gray-600 sm:-right-10 sm:top-auto sm:left-auto sm:w-full sm:translate-x-0"></div>
+          <div className="-z-10 absolute top-4 left-1/2 h-full w-5/6 -translate-x-1/2 rounded-lg bg-gray-300 sm:-right-10 sm:top-auto sm:left-auto sm:w-full sm:translate-x-0"></div>
           <div className="mx-auto mb-2 space-y-3">
+          <img src="/logo-2.png" alt="E-Shop Logo" className="w-[60px] ml-5" />
             <h1 className="text-center text-3xl font-bold text-gray-700">
               Sign in
             </h1>
@@ -93,7 +94,7 @@ const Login = () => {
             <div className="flex w-full items-center space-x-4">
               <button
                 type="submit"
-                className="shrink-0 inline-block w-36 rounded-lg bg-gray-600 py-3 font-bold text-white"
+                className="shrink-0 inline-block w-36 rounded-lg bg-gray-600 py-3 font-bold text-white mt-3"
               >
                 Login
               </button>

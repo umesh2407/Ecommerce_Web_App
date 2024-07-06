@@ -29,7 +29,7 @@ const Header = () => {
 
   return (
     <nav className="bg-gray-100 shadow-lg">
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4 py-2">
         <div className="flex justify-between items-center">
           <div className="flex items-center">
             <Link to="/">
@@ -47,12 +47,7 @@ const Header = () => {
             >
               Home
             </Link>
-            <Link
-              to="/category"
-              className="py-5 px-3 text-gray-900 hover:text-gray-700 hover:underline font-bold"
-            >
-              Category
-            </Link>
+          
             <Badge count={cart?.length} showZero>
             <Link
               to="/cart"
@@ -81,13 +76,13 @@ const Header = () => {
               <div className="hidden md:flex items-center relative">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
-                  className="py-5 px-3 text-gray-700 hover:text-gray-900 flex items-center"
+                  className="py-5 px-3 text-gray-700 hover:text-gray-900 flex items-center font-bold"
                 >
                   {auth?.user?.name}
                   <FaCaretDown className="ml-2" />
                 </button>
                 {showDropdown && (
-                  <div className="absolute right-0 mt-8 w-48 bg-white border rounded shadow-lg">
+                  <div className="absolute right-0 mt-8 w-48 bg-white border rounded shadow-lg font-bold">
                     <Link
                       to={`/dashboard/${auth?.user?.role === "admin"? "admin":"user"}`}
                       className="block px-4 py-2 text-gray-700 hover:bg-gray-100"
@@ -132,12 +127,6 @@ const Header = () => {
       <div className={`mobile-menu ${isOpen ? "block" : "hidden"} md:hidden`}>
         <Link to="/" className="block py-2 px-4 text-sm hover:bg-gray-200">
           Home
-        </Link>
-        <Link
-          to="/category"
-          className="block py-2 px-4 text-sm hover:bg-gray-200"
-        >
-          Category
         </Link>
         <Link to="/cart" className="block py-2 px-4 text-sm hover:bg-gray-200">
         Cart ({cart?.length})

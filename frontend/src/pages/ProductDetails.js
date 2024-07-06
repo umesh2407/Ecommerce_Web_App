@@ -2,11 +2,16 @@ import React, { useState, useEffect } from "react";
 import Layout from "./../components/Layout/Layout";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { useCart } from "../context/cart";
+import toast from "react-hot-toast";
+import { FaShoppingCart } from "react-icons/fa";
 
 const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
+  const [cart, setCart] = useCart();
+
   const [relatedProducts, setRelatedProducts] = useState([]);
 
   // Initial load for product details
@@ -66,13 +71,18 @@ const ProductDetails = () => {
                 </p>
                 <p className="mb-2">Category: {product?.category?.name}</p>
                 <button
-                  className="btn btn-dark text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded"
-                  onClick={() => {
-                    // Handle adding to cart
-                  }}
-                >
-                  ADD TO CART
-                </button>
+  className="btn btn-dark text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded flex items-center"
+  onClick={() => {
+    setCart([...cart, product]); // Use `product` instead of `p`
+    localStorage.setItem(
+      "cart",
+      JSON.stringify([...cart, product])
+    );
+    toast.success("Item Added to cart");
+  }}
+>
+  Add to Cart <FaShoppingCart className="ml-2" />
+</button>
               </div>
             </div>
           </div>
@@ -103,7 +113,7 @@ const ProductDetails = () => {
                       })}
                     </p>
                     <button
-                      className="btn btn-info"
+                      className="btn btn-info text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
                       More Details

@@ -41,6 +41,7 @@ const ForgotPassword = () => {
         <div className="p-4 sm:p-7">
           <div className="text-center">
             <div className="mb-4 inline-block rounded-full bg-gray-200 p-2 text-blue-500">
+              
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -128,7 +129,7 @@ const ForgotPassword = () => {
             Sign in here
           </a>
         </span>
-        <a className="pl-3 text-sm text-gray-600 hover:text-gray-900 underline" href="#" target="_blank">
+        <a className="pl-3 text-sm text-gray-600 hover:text-gray-900 underline" href="/contact" target="_blank">
           Contact Support
         </a>
       </p>
