@@ -3,7 +3,6 @@ const orderModel = require("../models/order");
 
 const bcrypt = require("bcrypt");
 const { generateJwtToken } = require("../middlewares/auth");
-const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 
 const isEmailValid = (email) => {

@@ -28,10 +28,6 @@ app.use("/api/user", userRoute);
 const productRoute = require("./routes/product");
 app.use("/api/product",productRoute);
 
-//cart
-const cartRoute = require("./routes/cart");
-app.use("/api/cart",cartRoute);
-
 //category
 const categoryRoute = require('./routes/category');
 app.use("/api/category",categoryRoute)
