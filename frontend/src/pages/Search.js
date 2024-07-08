@@ -2,15 +2,43 @@ import React from "react";
 import Layout from "./../components/Layout/Layout";
 import { useSearch } from "../context/search";
 import { useNavigate } from "react-router-dom";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaRegHeart } from "react-icons/fa";
 import toast from "react-hot-toast";
 import { useCart } from "../context/cart";
+import { useAuth } from "../context/authContext";
+import axios from "axios";
 
 const Search = () => {
   const [values, setValues] = useSearch();
   const [cart, setCart] = useCart();
-
+  const [auth] = useAuth(); 
+  
   const navigate = useNavigate();
+  const addToWishlist = async (productId) => {
+    try {
+      if (!auth.token) {
+        // Redirect to login if user is not authenticated
+        navigate("/login");
+        return;
+      }
+      
+      // API call to add product to wishlist
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API}/api/wishlist/add`,
+        { productId },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
+
+        toast.success("Added to wishlist");
+    } catch (error) {
+      console.error("Error adding to wishlist:", error);
+      toast.error("Failed to add to wishlist");
+    }
+  };
 
   return (
     <Layout title={"Search results"}>
@@ -30,6 +58,12 @@ const Search = () => {
                   className="w-full h-64 object-cover"
                   alt={p.name}
                 />
+                 <button
+                  className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                  onClick={() => addToWishlist(p._id) }
+                >
+                  <FaRegHeart className="text-2xl" />
+                </button>
                 <div className="p-6">
                   <h5 className="text-xl font-semibold">{p.name}</h5>
                   <p className="text-gray-600 mb-4">
@@ -41,7 +75,7 @@ const Search = () => {
                   <div className="mt-4 flex justify-between">
                     <button
                       onClick={() => navigate(`/product/${p.slug}`)}
-                      className="btn text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
+                      className="btn text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded"
                     >
                       More Details
                     </button>

@@ -113,7 +113,7 @@ const ProductDetails = () => {
                       })}
                     </p>
                     <button
-                      className="btn btn-info text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
+                      className="btn btn-info text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
                       More Details

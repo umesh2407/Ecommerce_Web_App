@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import Layout from "./../components/Layout/Layout";
 import { Checkbox, Radio } from "antd";
-import { Prices } from "../components/Prices";
-import { useCart } from "../context/cart";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Layout from "./../components/Layout/Layout";
+import { useCart } from "../context/cart";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 import { AiOutlineReload } from "react-icons/ai";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaRegHeart } from "react-icons/fa";
+import { Prices } from "../components/Prices";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ const Home = () => {
   const [total, setTotal] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [auth] = useAuth(); // Assume useAuth provides authentication context
 
   const getAllCategory = async () => {
     try {
@@ -115,6 +117,33 @@ const Home = () => {
     }
   };
 
+  // Function to add product to wishlist
+  const addToWishlist = async (productId) => {
+    try {
+      if (!auth.token) {
+        // Redirect to login if user is not authenticated
+        navigate("/login");
+        return;
+      }
+      
+      // API call to add product to wishlist
+      const { data } = await axios.post(
+        `${process.env.REACT_APP_API}/api/wishlist/add`,
+        { productId },
+        {
+          headers: {
+            Authorization: `Bearer ${auth.token}`,
+          },
+        }
+      );
+
+        toast.success("Added to wishlist");
+    } catch (error) {
+      console.error("Error adding to wishlist:", error);
+      toast.error("Failed to add to wishlist");
+    }
+  };
+
   return (
     <Layout title={"All Products - Best offers "}>
       <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4 mt-10">
@@ -159,7 +188,7 @@ const Home = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {products?.map((p) => (
               <div
-                className="card bg-white shadow-md rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300"
+                className="card bg-white shadow-md rounded-lg overflow-hidden transform hover:scale-105 transition-transform duration-300 relative"
                 key={p._id}
               >
                 <img
@@ -167,6 +196,12 @@ const Home = () => {
                   className="w-full h-96 object-cover"
                   alt={p.name}
                 />
+                <button
+                  className="absolute top-2 right-2 text-red-500 hover:text-red-700"
+                  onClick={() => addToWishlist(p._id) }
+                >
+                  <FaRegHeart className="text-2xl" />
+                </button>
                 <div className="p-4">
                   <div className="flex justify-between items-center mb-2">
                     <h5 className="text-lg font-semibold">{p.name}</h5>
@@ -182,7 +217,7 @@ const Home = () => {
                   </p>
                   <div className="flex justify-between items-center">
                     <button
-                      className="btn btn-info text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded"
+                      className="btn btn-info text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded"
                       onClick={() => navigate(`/product/${p.slug}`)}
                     >
                       More Details
@@ -209,7 +244,7 @@ const Home = () => {
           <div className="mt-6 flex justify-center">
             {products && products.length < total && (
               <button
-                className="btn loadmore text-white bg-indigo-500 hover:bg-indigo-700 px-6 py-3 rounded"
+                className="btn loadmore text-white bg-red-500 hover:bg-red-600 px-6 py-3 rounded"
                 onClick={(e) => {
                   e.preventDefault();
                   setPage(page + 1);

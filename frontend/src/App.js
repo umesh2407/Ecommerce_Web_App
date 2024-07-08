@@ -19,6 +19,7 @@ import Order from "./pages/User/Order";
 import Profile from "./pages/User/Profile";
 import AdminOrder from "./pages/Admin/AdminOrder";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
+import WishlistPage from "./pages/WishlistPage";
 
 function App() {
   return (
@@ -26,30 +27,31 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/product/:slug" element={<ProductDetails />} />
-        <Route path="/search" element={<Search />}/>
+        <Route path="/search" element={<Search />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/wishlist" element={<WishlistPage />} />
 
         <Route path="/dashboard" element={<PrivateRoute />}>
           <Route path="user" element={<Dashboard />} />
-          <Route path="user/orders" element={<Order/>} />
+          <Route path="user/orders" element={<Order />} />
           <Route path="user/profile" element={<Profile />} />
         </Route>
         <Route path="/dashboard" element={<AdminRoute />}>
           <Route path="admin" element={<AdminDashboard />} />
-          <Route path="admin/create-category" element={<CreateCategory/>} />
-          <Route path="admin/create-product" element={<CreateProduct/>} />
+          <Route path="admin/create-category" element={<CreateCategory />} />
+          <Route path="admin/create-product" element={<CreateProduct />} />
           <Route path="admin/product/:slug" element={<UpdateProduct />} />
           <Route path="admin/products" element={<ProductDisplay />} />
           <Route path="admin/orders" element={<AdminOrder />} />
         </Route>
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/register" element={<Register/>} />
-        <Route path="/forgot-password" element={<ForgotPassword/>} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="*" element={<PageNotFound />} />
-        </Routes>
-        </>
-  )
-  }
+      </Routes>
+    </>
+  );
+}
 
 export default App;

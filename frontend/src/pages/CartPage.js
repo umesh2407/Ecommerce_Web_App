@@ -121,10 +121,10 @@ const CartPage = () => {
                   className="flex items-center mb-4 bg-white rounded-lg shadow-md p-4"
                 >
                   <div className="w-24 h-24 mr-4">
-                    <img
+                    <img onClick={() => navigate(`/product/${p.slug}`)}
                       src={`${process.env.REACT_APP_API}/api/product/product-photo/${p._id}`}
                       alt={p.name}
-                      className="object-cover w-full h-full"
+                      className="object-cover w-full h-full cursor-pointer"
                     />
                   </div>
                   <div className="flex-grow">
