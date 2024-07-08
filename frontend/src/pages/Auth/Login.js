@@ -233,7 +233,7 @@ const Login = () => {
             <div className="flex w-full items-center space-x-4">
               <button
                 type="submit"
-                className="shrink-0 inline-block w-36 rounded-lg bg-gray-600 py-3 font-bold text-white mt-3"
+                className="shrink-0 inline-block w-36 rounded-lg bg-gray-600 py-3 font-bold text-white mt-3 hover:bg-gray-800 "
               >
                 Login
               </button>

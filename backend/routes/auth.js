@@ -15,14 +15,6 @@ router.put('/update', verifyToken, authController.updateUserProfile)
 //LogOut route
 router.get("/logout", verifyToken, authController.logout);
 
-//Forgot password
-router.post("/password/forgot", authController.forgotPassword);
-
-//Reset Password
-router.put("/password/reset/:token", authController.resetPassword);
-
-//update Password
-router.put('/password/update', verifyToken , authController.updatePassword);
 
 //Protected Route
 router.get('/user-auth', verifyToken, (req,res)=>{
@@ -33,6 +25,14 @@ router.get('/admin-auth', verifyToken, isAdmin, (req,res)=>{
     res.status(200).send({ok:true})
 }
 )
+
+//Forgot Password 
+router.post('/password/forgot',authController.forgotPassword);
+
+router.post('/password/verify-otp',authController.verifyOTP);
+
+//reset Password
+router.put('/password/reset', authController.resetPassword);
 
 //orders
 router.get("/orders",verifyToken,authController.getOrdersController);
