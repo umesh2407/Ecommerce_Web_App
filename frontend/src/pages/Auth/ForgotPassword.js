@@ -13,6 +13,7 @@ const ForgotPassword = () => {
   const [step, setStep] = useState(1);
   const [emailError, setEmailError] = useState(false);
   const [otpError, setOtpError] = useState(false);
+  // eslint-disable-next-line
   const [otpSent, setOtpSent] = useState(false);
   const navigate = useNavigate();
 
@@ -70,6 +71,7 @@ const ForgotPassword = () => {
         confirmPassword,
       });
       console.log("Password updated:", response.data);
+      alert("Password updated successfully. Please login with your new password.");
       toast.success("Password updated successfully. Please login with your new password.");
       navigate("/login");
     } catch (error) {

@@ -32,6 +32,10 @@ app.use("/api/product",productRoute);
 const categoryRoute = require('./routes/category');
 app.use("/api/category",categoryRoute)
 
+//wishlist
+const wishlistRoutes = require('./routes/wishlist');
+app.use('/api/wishlist', wishlistRoutes);
+
 app.get('/',(req, res)=>{
     res.send("Hello from Server!!! ")
 })
