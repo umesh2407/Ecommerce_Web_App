@@ -179,7 +179,7 @@ const Home = () => {
               className="mt-8 py-2 text-white bg-red-500 hover:bg-red-700 rounded-lg"
               onClick={() => window.location.reload()}
             >
-              RESET FILTERS
+              Reset Filters
             </button>
           </div>
         </div>

@@ -1,5 +1,6 @@
 const express = require('express');
 const ProductController = require("../controllers/product");
+const { sendReceiptEmail } = require('../controllers/receipt');
 
 const { isAdmin, verifyToken } = require("../middlewares/auth");
 const formidable = require("express-formidable");
@@ -59,5 +60,13 @@ router.get("/braintree/token", ProductController.braintreeTokenController);
 
 //payments
 router.post("/braintree/payment", verifyToken, ProductController.brainTreePaymentController);
+
+//email-payment-reciept 
+router.post('/send-receipt', sendReceiptEmail);
+
+//reviews
+router.post('/review',verifyToken, ProductController.createProductReview);
+router.get('/review/getall', ProductController.getProductReviews);
+router.delete('/review/delete',verifyToken, ProductController.deleteReview);
 
 module.exports = router;

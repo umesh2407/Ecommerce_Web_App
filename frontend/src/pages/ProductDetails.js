@@ -4,22 +4,22 @@ import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { useCart } from "../context/cart";
 import toast from "react-hot-toast";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaStar } from "react-icons/fa";
+import Review from "./Review";
 
 const ProductDetails = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [product, setProduct] = useState({});
   const [cart, setCart] = useCart();
-
   const [relatedProducts, setRelatedProducts] = useState([]);
+  const [comment, setComment] = useState("");
+  const [rating, setRating] = useState(0);
 
-  // Initial load for product details
   useEffect(() => {
     if (params?.slug) getProduct();
   }, [params?.slug]);
 
-  // Fetch product details
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
@@ -32,7 +32,6 @@ const ProductDetails = () => {
     }
   };
 
-  // Fetch related products
   const getSimilarProduct = async (pid, cid) => {
     try {
       const { data } = await axios.get(
@@ -41,6 +40,30 @@ const ProductDetails = () => {
       setRelatedProducts(data?.products);
     } catch (error) {
       console.log(error);
+    }
+  };
+
+  const handleReviewSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const reviewData = {
+        productId: product._id,
+        comment,
+        rating,
+      };
+      const response = await axios.post(
+        `${process.env.REACT_APP_API}/api/product/review`,
+        reviewData
+      );
+      if (response.data.success) {
+        toast.success("Review submitted successfully");
+        setComment("");
+        setRating(0);
+        getProduct();
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to submit review");
     }
   };
 
@@ -71,24 +94,79 @@ const ProductDetails = () => {
                 </p>
                 <p className="mb-2">Category: {product?.category?.name}</p>
                 <button
-  className="btn btn-dark text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded flex items-center"
-  onClick={() => {
-    setCart([...cart, product]); // Use `product` instead of `p`
-    localStorage.setItem(
-      "cart",
-      JSON.stringify([...cart, product])
-    );
-    toast.success("Item Added to cart");
-  }}
->
-  Add to Cart <FaShoppingCart className="ml-2" />
-</button>
+                  className="btn btn-dark text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded flex items-center"
+                  onClick={() => {
+                    setCart([...cart, product]);
+                    localStorage.setItem(
+                      "cart",
+                      JSON.stringify([...cart, product])
+                    );
+                    toast.success("Item Added to cart");
+                  }}
+                >
+                  Add to Cart <FaShoppingCart className="ml-2" />
+                </button>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Review Section */}
+        <div className="mt-8">
+          <h2 className="text-2xl font-bold mb-4 text-center">Reviews ({product.numOfReviews})</h2>
+          {product.reviews && product.reviews.length > 0 ? (
+            product.reviews.map((review) => (
+              <Review
+                key={review._id}
+                rating={review.rating}
+                comment={review.comment}
+              />
+            ))
+          ) : (
+            <p className="text-gray-500">No reviews yet.</p>
+          )}
+
+          {/* Review Form */}
+          <div className="mt-8 max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+            <h3 className="text-xl font-bold mb-4">Write a Review</h3>
+            <form onSubmit={handleReviewSubmit}>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Rating</label>
+                <select
+                  value={rating}
+                  onChange={(e) => setRating(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                >
+                  <option value="">Select rating</option>
+                  {[1, 2, 3, 4, 5].map((value) => (
+                    <option key={value} value={value}>
+                      {value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div className="mb-4">
+                <label className="block text-gray-700 mb-2">Comment</label>
+                <textarea
+                  value={comment}
+                  onChange={(e) => setComment(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  rows="4"
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="btn btn-dark text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded"
+              >
+                Submit Review
+              </button>
+            </form>
+          </div>
+        </div>
+
+        {/* Similar Products Section */}
         <div className="flex flex-col w-full md:w-auto text-center mt-10">
-          <h4 className="text-2xl mb-4">Similar Products</h4>
+          <h4 className="text-2xl mb-4 font-semibold font-sans">Similar Products</h4>
           {relatedProducts.length === 0 && (
             <p className="text-gray-500">No Similar Products found</p>
           )}
