@@ -11,8 +11,8 @@ import axios from "axios";
 const Search = () => {
   const [values, setValues] = useSearch();
   const [cart, setCart] = useCart();
-  const [auth] = useAuth(); 
-  
+  const [auth] = useAuth();
+
   const navigate = useNavigate();
   const addToWishlist = async (productId) => {
     try {
@@ -21,7 +21,7 @@ const Search = () => {
         navigate("/login");
         return;
       }
-      
+
       // API call to add product to wishlist
       const { data } = await axios.post(
         `${process.env.REACT_APP_API}/api/wishlist/add`,
@@ -33,7 +33,7 @@ const Search = () => {
         }
       );
 
-        toast.success("Added to wishlist");
+      toast.success("Added to wishlist");
     } catch (error) {
       console.error("Error adding to wishlist:", error);
       toast.error("Failed to add to wishlist");
@@ -50,17 +50,20 @@ const Search = () => {
               ? "No Products Found"
               : `Found ${values?.results.length} Products`}
           </h6>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-10 mb-10 ">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-10 mt-10 mb-10 ">
             {values?.results.map((p) => (
-              <div key={p._id} className="card bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105">
+              <div
+                key={p._id}
+                className="card bg-white shadow-lg rounded-lg overflow-hidden transform transition-all duration-300 hover:scale-105"
+              >
                 <img
                   src={`${process.env.REACT_APP_API}/api/product/product-photo/${p._id}`}
                   className="w-full h-64 object-cover"
                   alt={p.name}
                 />
-                 <button
+                <button
                   className="absolute top-2 right-2 text-red-500 hover:text-red-700"
-                  onClick={() => addToWishlist(p._id) }
+                  onClick={() => addToWishlist(p._id)}
                 >
                   <FaRegHeart className="text-2xl" />
                 </button>

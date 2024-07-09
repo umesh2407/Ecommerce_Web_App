@@ -78,23 +78,35 @@ const ProductDetails = () => {
               className="w-full h-auto md:h-96 object-cover"
             />
             <div className="p-4">
-              <h1 className="text-3xl font-bold text-center mb-4">
+              <h1 className="text-3xl font-thin text-center mb-4">
                 Product Details
               </h1>
-              <hr className="mb-4" />
+              <hr className="border-gray-300 mb-4" />
               <div className="text-left">
-                <h6 className="mb-2">Name: {product.name}</h6>
-                <p className="mb-2">Description: {product.description}</p>
-                <p className="mb-2">
-                  Price:{" "}
-                  {product?.price?.toLocaleString("en-US", {
-                    style: "currency",
-                    currency: "INR",
-                  })}
-                </p>
-                <p className="mb-2">Category: {product?.category?.name}</p>
+                <div className="mb-2">
+                  <p className="text-lg font-semibold">{product.name}</p>
+                </div>
+                <div className="mb-2">
+                  <h6 className="text-base font-semibold">Description:</h6>
+                  <p className="text-sm text-gray-600">{product.description}</p>
+                </div>
+                <div className="mb-2">
+                  <h6 className="text-base font-semibold">Price:</h6>
+                  <p className="text-lg font-medium text-green-600">
+                    {product?.price?.toLocaleString("en-US", {
+                      style: "currency",
+                      currency: "INR",
+                    })}
+                  </p>
+                </div>
+                <div className="mb-2">
+                  <h6 className="text-base font-semibold">Category:</h6>
+                  <p className="text-sm text-gray-600">
+                    {product?.category?.name}
+                  </p>
+                </div>
                 <button
-                  className="btn btn-dark text-white bg-gray-800 hover:bg-gray-900 px-4 py-2 rounded flex items-center"
+                  className="btn btn-dark flex items-center justify-center w-full py-2 rounded-lg text-white bg-gray-800 hover:bg-gray-900"
                   onClick={() => {
                     setCart([...cart, product]);
                     localStorage.setItem(
@@ -104,7 +116,8 @@ const ProductDetails = () => {
                     toast.success("Item Added to cart");
                   }}
                 >
-                  Add to Cart <FaShoppingCart className="ml-2" />
+                  <FaShoppingCart className="text-xl" />
+                  <span className="ml-2">Add to Cart</span>
                 </button>
               </div>
             </div>
@@ -113,7 +126,9 @@ const ProductDetails = () => {
 
         {/* Review Section */}
         <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4 text-center">Reviews ({product.numOfReviews})</h2>
+          <h2 className="text-2xl font-bold mb-4 text-center">
+            Reviews ({product.numOfReviews})
+          </h2>
           {product.reviews && product.reviews.length > 0 ? (
             product.reviews.map((review) => (
               <Review
@@ -123,7 +138,7 @@ const ProductDetails = () => {
               />
             ))
           ) : (
-            <p className="text-gray-500">No reviews yet.</p>
+            <p className="text-gray-500 text-center">No reviews yet...</p>
           )}
 
           {/* Review Form */}
@@ -166,7 +181,9 @@ const ProductDetails = () => {
 
         {/* Similar Products Section */}
         <div className="flex flex-col w-full md:w-auto text-center mt-10">
-          <h4 className="text-2xl mb-4 font-semibold font-sans">Similar Products</h4>
+          <h4 className="text-2xl mb-4 font-semibold font-sans">
+            Similar Products
+          </h4>
           {relatedProducts.length === 0 && (
             <p className="text-gray-500">No Similar Products found</p>
           )}
