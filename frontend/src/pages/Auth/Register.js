@@ -12,7 +12,6 @@ const Register = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [errors, setErrors] = useState({});
-
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -58,9 +57,8 @@ const Register = () => {
 
   return (
     <Layout>
-      <div className="flex h-screen items-center overflow-hidden px-2 mb-20 mt-10">
-        <div className="relative flex w-96 flex-col space-y-5 rounded-lg border bg-white px-5 py-10 shadow-xl mx-auto">
-          <div className="-z-10 absolute top-4 left-1/2 h-full w-5/6 -translate-x-1/2 rounded-lg bg-gray-300 sm:-right-10 sm:top-auto sm:left-auto sm:w-full sm:translate-x-0"></div>
+      <div className="flex h-screen items-center overflow-hidden px-2 mb-20 mt-7">
+        <div className="relative flex w-full flex-col space-y-5 rounded-lg border bg-white px-5 py-10 shadow-xl max-w-md mx-auto">
           <div className="mx-auto mb-2 space-y-3">
             <img src="/logo-2.png" alt="E-Shop Logo" className="w-[60px] ml-6" />
             <h1 className="text-center text-3xl font-bold text-gray-700">
@@ -68,8 +66,8 @@ const Register = () => {
             </h1>
             {errors.general && <p className="text-red-500">{errors.general}</p>}
           </div>
-          <form onSubmit={handleSubmit}>
-            <div className="relative mt-2 w-full">
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="relative">
               <input
                 type="text"
                 id="name"
@@ -82,13 +80,13 @@ const Register = () => {
               />
               <label
                 htmlFor="name"
-                className="origin-[0] peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 absolute left-1 top-2 z-10 -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300"
+                className="absolute left-2 top-2 -translate-y-3 text-sm text-gray-500 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 transform origin-[0] cursor-text select-none bg-white px-2 duration-300"
               >
                 Enter Your Name
               </label>
             </div>
 
-            <div className="relative mt-2 w-full">
+            <div className="relative">
               <input
                 type="text"
                 id="email"
@@ -101,13 +99,13 @@ const Register = () => {
               />
               <label
                 htmlFor="email"
-                className="origin-[0] peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 absolute left-1 top-2 z-10 -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300"
+                className="absolute left-2 top-2 -translate-y-3 text-sm text-gray-500 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 transform origin-[0] cursor-text select-none bg-white px-2 duration-300"
               >
                 Enter Your Email
               </label>
             </div>
 
-            <div className="relative mt-2 w-full">
+            <div className="relative">
               <input
                 type="password"
                 id="password"
@@ -120,13 +118,13 @@ const Register = () => {
               />
               <label
                 htmlFor="password"
-                className="origin-[0] peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 absolute left-1 top-2 z-10 -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300"
+                className="absolute left-2 top-2 -translate-y-3 text-sm text-gray-500 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 transform origin-[0] cursor-text select-none bg-white px-2 duration-300"
               >
                 Enter Your Password
               </label>
             </div>
 
-            <div className="relative mt-2 w-full">
+            <div className="relative">
               <input
                 type="text"
                 id="phone"
@@ -139,13 +137,13 @@ const Register = () => {
               />
               <label
                 htmlFor="phone"
-                className="origin-[0] peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 absolute left-1 top-2 z-10 -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300"
+                className="absolute left-2 top-2 -translate-y-3 text-sm text-gray-500 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 transform origin-[0] cursor-text select-none bg-white px-2 duration-300"
               >
                 Enter Your Phone
               </label>
             </div>
 
-            <div className="relative mt-2 w-full">
+            <div className="relative">
               <input
                 type="text"
                 id="address"
@@ -158,13 +156,13 @@ const Register = () => {
               />
               <label
                 htmlFor="address"
-                className="origin-[0] peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:px-2 peer-focus:text-blue-600 absolute left-1 top-2 z-10 -translate-y-4 scale-75 transform cursor-text select-none bg-white px-2 text-sm text-gray-500 duration-300"
+                className="absolute left-2 top-2 -translate-y-3 text-sm text-gray-500 peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-75 peer-focus:text-blue-600 transform origin-[0] cursor-text select-none bg-white px-2 duration-300"
               >
                 Enter Your Address
               </label>
             </div>
 
-            <div className="flex w-full items-center mt-4">
+            <div className="flex items-center justify-center mt-4">
               <button
                 type="submit"
                 className="inline-block w-36 rounded-lg bg-gray-600 py-3 font-bold text-white hover:bg-gray-800 transition duration-300"
