@@ -26,7 +26,7 @@ const ForgotPassword = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/password/forgot", { email });
+      const response = await axios.post(`${process.env.REACT_APP_API}/api/auth/password/forgot`, { email });
       console.log("OTP sent:", response.data);
       setOtpSent(true);
       setStep(2);
@@ -46,7 +46,7 @@ const ForgotPassword = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:8080/api/auth/password/verify-otp", { email, otp });
+      const response = await axios.post(`${process.env.REACT_APP_API}/api/auth/password/verify-otp`, { email, otp });
       console.log("OTP verified:", response.data);
       setOtpError(false);
       setStep(3);
@@ -65,7 +65,7 @@ const ForgotPassword = () => {
     }
 
     try {
-      const response = await axios.put("http://localhost:8080/api/auth/password/reset", {
+      const response = await axios.put(`${process.env.REACT_APP_API}/api/auth/password/reset`, {
         email,
         newPassword,
         confirmPassword,
