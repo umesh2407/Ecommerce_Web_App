@@ -1,6 +1,7 @@
 const productModel = require("../models/product.js");
 const categoryModel = require("../models/category.js");
 const orderModel = require("../models/order.js");
+const nodemailer = require("nodemailer");
 
 const fs = require ("fs");
 const slugify  = require("slugify");
@@ -377,9 +378,111 @@ exports.brainTreePaymentController = async (req, res) => {
   }
 };
 
+//INvoice 
+// // Function to send invoice email
+// exports.sendInvoice = async (req, res) => {
+//   try {
+//     const { userEmail, invoiceDetails } = req.body;
+
+//     // Create transporter with your SMTP settings
+//     let transporter = nodemailer.createTransport({
+//       service: "Gmail",
+//       auth: {
+//         user: process.env.EMAIL,
+//         pass: process.env.PASSWORD,
+//       },
+//     });
+
+//     // Mail options
+//     let mailOptions = {
+//       from: process.env.EMAIL,
+//       to: userEmail,
+//       subject: "Invoice for Your Purchase",
+//       html: `
+//         <h3>Invoice Details</h3>
+//         <p>Invoice Date: ${new Date().toDateString()}</p>
+//         <p>Items Purchased:</p>
+//         <ul>
+//           ${invoiceDetails.map(item => `<li>${item.name}: ${item.price}</li>`).join('')}
+//         </ul>
+//         <p>Total: ${invoiceDetails.reduce((acc, item) => acc + item.price, 0)}</p>
+//       `,
+//     };
+
+//     // Send email
+//     let info = await transporter.sendMail(mailOptions);
+//     console.log("Email sent: " + info.response);
+    
+//     res.status(200).json({ message: "Invoice sent successfully!" });
+//   } catch (error) {
+//     console.error("Error sending invoice:", error);
+//     res.status(500).json({ error: "Failed to send invoice" });
+//   }
+// };
+exports.sendInvoice = async (req, res) => {
+  try {
+    const { userEmail, invoiceDetails } = req.body;
+
+    // Create transporter with your SMTP settings
+    let transporter = nodemailer.createTransport({
+      service: "Gmail",
+      auth: {
+        user: process.env.EMAIL,
+        pass: process.env.PASSWORD,
+      },
+    });
+
+    // Generate the HTML for the email body
+    let itemsHtml = invoiceDetails.map(item => `
+      <tr>
+        <td>${item.name}</td>
+        <td>${item.price.toLocaleString("en-US", { style: "currency", currency: "INR" })}</td>
+      </tr>
+    `).join('');
+
+    // Calculate total price
+    let totalPrice = invoiceDetails.reduce((acc, item) => acc + item.price, 0);
+
+    // Mail options with improved styling
+    let mailOptions = {
+      from: process.env.EMAIL,
+      to: userEmail,
+      subject: "Invoice for Your Purchase",
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+          <h2 style="color: #333333;">Invoice Details</h2>
+          <p style="margin-bottom: 10px;">Invoice Date: ${new Date().toDateString()}</p>
+          <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+            <thead style="background-color: #f0f0f0;">
+              <tr>
+                <th style="padding: 8px; text-align: left;">Item</th>
+                <th style="padding: 8px; text-align: left;">Price</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${itemsHtml}
+              <tr style="font-weight: bold;">
+                <td style="padding: 8px; text-align: left;">Total:</td>
+                <td style="padding: 8px; text-align: left;">${totalPrice.toLocaleString("en-US", { style: "currency", currency: "INR" })}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      `,
+    };
+
+    // Send email
+    let info = await transporter.sendMail(mailOptions);
+    console.log("Email sent: " + info.response);
+    
+    res.status(200).json({ message: "Invoice sent successfully!" });
+  } catch (error) {
+    console.error("Error sending invoice:", error);
+    res.status(500).json({ error: "Failed to send invoice" });
+  }
+};
 
 // Review Controllers
-
 // Create New Review or Update the review
 exports.createProductReview = async (req, res) => {
   try {

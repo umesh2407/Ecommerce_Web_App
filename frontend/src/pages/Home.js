@@ -146,7 +146,7 @@ const Home = () => {
 
   return (
     <Layout title={"All Products - Best offers "}>
-      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4 mt-10">
+      <div className="container mx-auto grid grid-cols-1 lg:grid-cols-4 gap-4 mt-5">
         <div className="col-span-1 shadow-2xl rounded-2xl mb-10">
           <h4 className="text-center text-xl font-semibold mt-5 shadow-sm">
             Filter By Category

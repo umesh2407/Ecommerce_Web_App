@@ -21,7 +21,7 @@ const Footer = () => {
         <Link to="/">
         <img src={logo} alt="Logo" className="w-[300px]" /></Link>
       
-        <p className="text-lg text-center">High Quality is our first priority</p>
+        <p className="text-lg text-center mt-4">High Quality is our first priority</p>
         <p className="text-sm mt-4">&copy; 2024 Umesh Choudhary</p>
       </div>
 

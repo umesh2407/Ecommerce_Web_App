@@ -76,27 +76,56 @@ const CartPage = () => {
   };
 
   // Handle payment processing
-  const handlePayment = async () => {
-    try {
-      setLoading(true);
-      const { nonce } = await instance.requestPaymentMethod();
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_API}/api/product/braintree/payment`,
-        {
-          nonce,
-          cart,
-        }
-      );
-      setLoading(false);
-      localStorage.removeItem("cart");
-      setCart([]);
-      navigate("/dashboard/user/orders");
-      toast.success("Payment Completed Successfully");
-    } catch (error) {
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  // const handlePayment = async () => {
+  //   try {
+  //     setLoading(true);
+  //     const { nonce } = await instance.requestPaymentMethod();
+  //     const { data } = await axios.post(
+  //       `${process.env.REACT_APP_API}/api/product/braintree/payment`,
+  //       {
+  //         nonce,
+  //         cart,
+  //       }
+  //     );
+  //     setLoading(false);
+  //     localStorage.removeItem("cart");
+  //     setCart([]);
+  //     navigate("/dashboard/user/orders");
+  //     toast.success("Payment Completed Successfully");
+  //   } catch (error) {
+  //     console.log(error);
+  //     setLoading(false);
+  //   }
+  // };
+// Inside your handlePayment function
+const handlePayment = async () => {
+  try {
+    setLoading(true);
+    const { nonce } = await instance.requestPaymentMethod();
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_API}/api/product/braintree/payment`,
+      {
+        nonce,
+        cart,
+      }
+    );
+
+    // After successful payment, send invoice email
+    await axios.post(`${process.env.REACT_APP_API}/api/product/send-invoice`, {
+      userEmail: auth.user.email, // Assuming user email is stored in auth.user.email
+      invoiceDetails: cart, // Assuming cart contains the items purchased
+    });
+
+    setLoading(false);
+    localStorage.removeItem("cart");
+    setCart([]);
+    navigate("/dashboard/user/orders");
+    toast.success("Payment Completed Successfully");
+  } catch (error) {
+    console.log("Error processing payment:", error);
+    setLoading(false);
+  }
+};
 
   return (
     <Layout>
