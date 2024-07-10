@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 
 const ProductDisplay = () => {
   const [products, setProducts] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 6;
 
   //get all products
   const getAllProducts = async () => {
@@ -23,6 +25,18 @@ const ProductDisplay = () => {
     getAllProducts();
   }, []);
 
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = products.slice(indexOfFirstItem, indexOfLastItem);
+
+  const handlePrevPage = () => {
+    setCurrentPage((prevPage) => Math.max(prevPage - 1, 1));
+  };
+
+  const handleNextPage = () => {
+    setCurrentPage((prevPage) => Math.min(prevPage + 1, Math.ceil(products.length / itemsPerPage)));
+  };
+
   return (
     <Layout>
       <div className="container mx-auto p-4">
@@ -31,9 +45,9 @@ const ProductDisplay = () => {
             <AdminMenu />
           </div>
           <div className="md:w-3/4">
-            <h1 className="text-2xl font-bold text-center mb-4 ">All Products List</h1>
+            <h1 className="text-2xl font-bold text-center mb-4">All Products List</h1>
             <div className="flex flex-wrap">
-              {products?.map((p) => (
+              {currentItems.map((p) => (
                 <Link
                   key={p._id}
                   to={`/dashboard/admin/product/${p.slug}`}
@@ -47,11 +61,27 @@ const ProductDisplay = () => {
                     />
                     <div className="p-4">
                       <h5 className="text-lg font-bold mb-2">{p.name}</h5>
-                      <p className="text-gray-700">{p.description}</p>
+                      {/* <p className="text-gray-700">{p.description}</p> */}
                     </div>
                   </div>
                 </Link>
               ))}
+            </div>
+            <div className="flex justify-center space-x-3 mt-4">
+              <button
+                onClick={handlePrevPage}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed"
+              >
+                Prev
+              </button>
+              <button
+                onClick={handleNextPage}
+                disabled={currentPage === Math.ceil(products.length / itemsPerPage)}
+                className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed"
+              >
+                Next
+              </button>
             </div>
           </div>
         </div>
