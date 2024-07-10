@@ -20,6 +20,7 @@ import Profile from "./pages/User/Profile";
 import AdminOrder from "./pages/Admin/AdminOrder";
 import ForgotPassword from "./pages/Auth/ForgotPassword";
 import WishlistPage from "./pages/WishlistPage";
+import AdminUsers from "./pages/Admin/AdminUsers";
 
 function App() {
   return (
@@ -43,6 +44,7 @@ function App() {
           <Route path="admin/product/:slug" element={<UpdateProduct />} />
           <Route path="admin/products" element={<ProductDisplay />} />
           <Route path="admin/orders" element={<AdminOrder />} />
+          <Route path="admin/users" element={<AdminUsers />} />
         </Route>
         <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
