@@ -9,7 +9,7 @@ const AdminUsers = () => {
 
   const getUsers = async () => {
     try {
-      const { data } = await axios.get("http://localhost:8080/api/user/getall");
+      const { data } = await axios.get(`${process.env.REACT_APP_API}api/user/getall`);
       if (data.success) {
         setUsers(data.users);
       } else {
