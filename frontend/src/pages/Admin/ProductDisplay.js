@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 const ProductDisplay = () => {
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [totalproduct, setTotalproduct] = useState(0);
   const itemsPerPage = 6;
 
   //get all products
@@ -15,6 +16,7 @@ const ProductDisplay = () => {
     try {
       const { data } = await axios.get(`${process.env.REACT_APP_API}/api/product/get-product`);
       setProducts(data.products);
+      setTotalproduct(data.counTotal);
     } catch (error) {
       console.log(error);
       toast.error("Something Went Wrong");
@@ -45,7 +47,9 @@ const ProductDisplay = () => {
             <AdminMenu />
           </div>
           <div className="md:w-3/4">
-            <h1 className="text-2xl font-bold text-center mb-4">All Products List</h1>
+            <h1 className="text-2xl font-thin text-center mb-4">All Products List</h1>
+            <h5 className="text-2xl font-semibold text-center mb-4">Total Products = {totalproduct}</h5>
+           
             <div className="flex flex-wrap">
               {currentItems.map((p) => (
                 <Link
@@ -73,7 +77,7 @@ const ProductDisplay = () => {
                 disabled={currentPage === 1}
                 className="px-4 py-2 bg-gray-300 text-gray-700 rounded hover:bg-gray-400 disabled:bg-gray-200 disabled:cursor-not-allowed"
               >
-                Prev
+                Previous
               </button>
               <button
                 onClick={handleNextPage}

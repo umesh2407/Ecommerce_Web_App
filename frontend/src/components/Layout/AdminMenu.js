@@ -22,7 +22,7 @@ const AdminMenu = () => {
           to="/dashboard/admin/products"
           className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
         >
-          Products
+         Update Product
         </NavLink>
         <NavLink
           to="/dashboard/admin/orders"
@@ -30,12 +30,12 @@ const AdminMenu = () => {
         >
           Orders
         </NavLink>
-        {/* <NavLink
+        <NavLink
           to="/dashboard/admin/users"
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
+          className="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-blue-600 transition duration-300"
         >
           Users
-        </NavLink> */}
+        </NavLink>
       </div>
     </div>
   );

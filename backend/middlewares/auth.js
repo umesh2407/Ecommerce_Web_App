@@ -7,7 +7,7 @@ function generateJwtToken(userSchema) {
         user: userSchema._id,
         email: userSchema.email,
         role: userSchema.role,
-        exp: Math.floor(Date.now() / 1000) + (30 * 60),
+        exp: Math.floor(Date.now() / 1000) + (60 * 60),
     };
     
     // Generate JWT token
