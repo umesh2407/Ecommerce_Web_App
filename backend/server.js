@@ -24,9 +24,14 @@ if (result.error) {
 connectDatabase();
 
 
-const server= app.listen(process.env.PORT, ()=>{
-    console.log(`Server is working on http://localhost:${process.env.PORT} `)
-})
+// const server= app.listen(process.env.PORT, ()=>{
+//     console.log(`Server is working on http://localhost:${process.env.PORT} `)
+// })
+const PORT = process.env.PORT || 3000;
+
+const server= app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
 
 //Unhandled Promise Rejection
 process.on("unhandledRejection",err=>{

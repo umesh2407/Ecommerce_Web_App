@@ -1,7 +1,4 @@
 import React from "react";
-import playStore from "../../images/playstore.png";
-import appStore from "../../images/Appstore.png";
-import logo from "../../images/logo.png";
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
