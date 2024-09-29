@@ -1,4 +1,7 @@
 import React from "react";
+import playStore from "../../images/playstore.png";
+import appStore from "../../images/Appstore.png";
+import logo from "../../images/logo.png";
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -8,8 +11,8 @@ const Footer = () => {
         <h4 className="text-lg font-medium mb-2">DOWNLOAD OUR APP</h4>
         <p className="text-sm text-center">Download App for Android and IOS mobile phone</p>
         <div className="flex mt-2">
-          {/* <img src={playStore} alt="playstore" className="w-20 mr-4 cursor-pointer" />
-          <img src={appStore} alt="Appstore" className="w-20 cursor-pointer" /> */}
+          <img src={playStore} alt="playstore" className="w-20 mr-4 cursor-pointer" />
+          <img src={appStore} alt="Appstore" className="w-20 cursor-pointer" />
         </div>
       </div>
 
