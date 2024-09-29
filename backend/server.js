@@ -13,12 +13,13 @@ process.on("uncaughtException",(err)=>{
 
 //Config
 // dotenv.config({path:"./config/config.env"})
-let filePath = path.join(__dirname, `.env`);
-let result = dotenv.config({ path: filePath });
-if (result.error) {
-    console.log(result.error);
-    process.exit(0);
-  }
+// let filePath = path.join(__dirname, `.env`);
+// let result = dotenv.config({ path: filePath });
+// if (result.error) {
+//     console.log(result.error);
+//     process.exit(0);
+//   }
+dotenv.config(); // Let Render environment handle the PORT
 
 //connecting database
 connectDatabase();
